@@ -18,8 +18,7 @@ const pointSchema = new mongoose.Schema({
 const fridgeSlotSchema = new Schema({
     slotnumber:{
         type: Number,
-        index:true, 
-        unique:true,
+        index:true,
         sparse:true
     },
     donationID:{

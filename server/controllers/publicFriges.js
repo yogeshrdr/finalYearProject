@@ -1,5 +1,7 @@
 const Fridge = require('../models/publicFridges');
 const Ngo = require('../models/ngo');
+const Block = require('../blockchain/bundle');
+
 
 exports.addFridges = async(req, res) => {
     try {
@@ -17,6 +19,10 @@ exports.addFridges = async(req, res) => {
         const PublicFridge = await newFridge.save();
 
         //Todo: here PublicFrige is Added to blockchain
+        const BlockChain = await Block();
+        const contract = BlockChain.Block;
+        const BlockAddress = BlockChain.address;
+        await contract.methods.addFridge(PublicFridge.id,ngo.id,address).send({from: BlockAddress[0], gas: '1000000'});
 
         await ngo.publicFridges.push(PublicFridge);
         await ngo.save();
@@ -64,13 +70,20 @@ exports.ngoFridge = async(req, res) => {
         if(!checkngo)
             return res.status(200).json({success: false, message: 'unauthorized access'});
 
-        //Todo: This fucntion will be changed when blockchain is implemented
+        
 
         const ngo = await Ngo.findById(checkngo.id).populate('publicFridges').exec();
 
         const publicFridges = await ngo.publicFridges;
 
-        return res.status(200).json({success: true, publicFridges});
+
+
+        //Todo: blockchain
+        const BlockChain = await Block();
+        const contract = BlockChain.Block;
+        const result = contract.methods.getNgoFridge(checkngo.id).call();
+
+        return res.status(200).json({success: true, publicFridges, FridgeBlock: result});
         
     } catch (error) {
         res.status(500).json({success: false, message: 'Server Error'})

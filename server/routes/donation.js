@@ -6,6 +6,7 @@ const validate = require('../middleware/validator');
 const Donation = require('../controllers/donation');
 const Auth = require('../middleware/auth');
 
+
 router.post('/addDonation',[
     check('publicFridgesID').not().isEmpty().withMessage({success: false, message: 'publicFridgesID is requried'}),
 ], validate, Auth, Donation.addDonation);

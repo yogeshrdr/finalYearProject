@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require('cors');
 const mongoose = require('mongoose');
 const passport = require("passport");
+const Web3 = require('Web3');
 
 
 require('dotenv').config();
@@ -38,6 +39,9 @@ connection.on('error', (err) => {
    process.exit();
 });
 
+
+
+
 //Middleware
 app.use(passport.initialize());
 require("./middleware/jwt")(passport);
@@ -46,5 +50,6 @@ require("./middleware/jwt")(passport);
 
 //configureRoute
 require('./routes/index')(app);
+
 
 app.listen(port, () => console.log(`port is running ${port}`));

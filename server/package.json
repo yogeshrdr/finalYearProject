@@ -26,6 +26,6 @@
     "shortid": "^2.2.16",
     "socket.io": "^4.5.1",
     "truffle-contract": "^4.0.31",
-    "web3": "^1.7.5"
+    "web3": "^1.8.0"
   }
 }
