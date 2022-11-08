@@ -16,6 +16,10 @@ const donationSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'publicFridge'
     },
+    driveId:{
+        type: Schema.Types.ObjectId,
+        ref: 'ngoDrives'
+    },
     status:{
         type: String,
         default: 'pending'
@@ -26,6 +30,10 @@ const donationSchema = new Schema({
     },
     slotNumber:{
         type: Number
+    },
+    totalAmount:{
+        type: Number,
+        default: 0
     }
 }, { timestamps: true});
 

@@ -1,7 +1,7 @@
 pragma solidity ^0.8.16;
 pragma experimental ABIEncoderV2;
 
-contract FoodDonation{
+contract NgoContract{
     struct Ngo{
         string ngoId;
         string name;

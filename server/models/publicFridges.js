@@ -43,12 +43,6 @@ const fridgeSchema = new Schema({
         type: String,
         deafult:"food"
     },
-    fridgeSlotBooked:[{
-        type: Number
-    }],
-    fridgeSlotStatus:[{
-       type: fridgeSlotSchema
-    }],
     address:{
         type: String,
     },
@@ -59,7 +53,15 @@ const fridgeSchema = new Schema({
     isFull:{
         type: Boolean, 
         default: false
-    }
+    },
+    counter:{
+        type: Number,
+        deafult:0
+    },
+    slots:[{ 
+        type: Schema.Types.ObjectId,
+        ref: 'slots'
+    }],
 }, { timestamps: true});
 
 

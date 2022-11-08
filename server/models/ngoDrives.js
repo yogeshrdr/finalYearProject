@@ -15,26 +15,29 @@ const pointSchema = new mongoose.Schema({
 
 
 const ngoDrivesSchema = new Schema({
+    driveName:{
+        type: String
+    },
     ngoId:{
         type: Schema.Types.ObjectId,
         ref: 'ngo'
     },
-    driveDescription:{
+    description:{
         type: String,
     },
     startDate:{
-        type: Number,
+        type: String,
     },
     endDate:{
-        type: Number,
-    },
-    typeRequired:{
         type: String,
-        default: 'food'
     },
-    progess:{
+    totalDonation:{
         type: Number,
         default: 0
+    },
+    estimatedDonation:{
+        type: Number,
+        default:0
     },
     address:{
         type: String,

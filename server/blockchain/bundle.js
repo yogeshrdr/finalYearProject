@@ -2,556 +2,377 @@ const Web3 = require('Web3');
 
 const BlockChain = async() => {
     const foodDonationABI = [
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "name": "donation",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "donationId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "userID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "publicFridgesID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "donationType",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "name": "donationKey",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "name": "ngo",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "ngoId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "email",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "phoneno",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoAddress",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "name": "ngoDonation",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "name": "ngoFridge",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "",
-              "type": "uint256"
-            }
-          ],
-          "name": "userDonation",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "ngoId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "email",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "phoneno",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoAddress",
-              "type": "string"
-            }
-          ],
-          "name": "addNgo",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "Id",
-              "type": "string"
-            }
-          ],
-          "name": "getNgo",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "ngoId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "email",
-              "type": "string"
-            },
-            {
-              "internalType": "uint256",
-              "name": "phoneno",
-              "type": "uint256"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoAddress",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "donationId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "userID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "publicFridgesID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "donationType",
-              "type": "string"
-            }
-          ],
-          "name": "addDonation",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "x",
-              "type": "string"
-            }
-          ],
-          "name": "getDonation",
-          "outputs": [
-            {
-              "internalType": "string",
-              "name": "donationId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "ngoID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "userID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "publicFridgesID",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "donationType",
-              "type": "string"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [],
-          "name": "getDonations",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "donationId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "ngoID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "userID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "publicFridgesID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "donationType",
-                  "type": "string"
-                }
-              ],
-              "internalType": "struct FoodDonation.Donation[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "userId",
-              "type": "string"
-            }
-          ],
-          "name": "getUserDonations",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "donationId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "ngoID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "userID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "publicFridgesID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "donationType",
-                  "type": "string"
-                }
-              ],
-              "internalType": "struct FoodDonation.Donation[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "ngoId",
-              "type": "string"
-            }
-          ],
-          "name": "getNgoDonations",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "donationId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "ngoID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "userID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "publicFridgesID",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "donationType",
-                  "type": "string"
-                }
-              ],
-              "internalType": "struct FoodDonation.Donation[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "PublicFridgesId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "NgoId",
-              "type": "string"
-            },
-            {
-              "internalType": "string",
-              "name": "publicFridgeAddress",
-              "type": "string"
-            }
-          ],
-          "name": "addFridge",
-          "outputs": [],
-          "stateMutability": "nonpayable",
-          "type": "function"
-        },
-        {
-          "inputs": [],
-          "name": "getAllFridge",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "PublicFridgesId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "NgoId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "publicFridgeAddress",
-                  "type": "string"
-                }
-              ],
-              "internalType": "struct FoodDonation.PublicFridges[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        },
-        {
-          "inputs": [
-            {
-              "internalType": "string",
-              "name": "NgoId",
-              "type": "string"
-            }
-          ],
-          "name": "getNgoFridge",
-          "outputs": [
-            {
-              "components": [
-                {
-                  "internalType": "string",
-                  "name": "PublicFridgesId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "NgoId",
-                  "type": "string"
-                },
-                {
-                  "internalType": "string",
-                  "name": "publicFridgeAddress",
-                  "type": "string"
-                }
-              ],
-              "internalType": "struct FoodDonation.PublicFridges[]",
-              "name": "",
-              "type": "tuple[]"
-            }
-          ],
-          "stateMutability": "view",
-          "type": "function",
-          "constant": true
-        }
-      ]
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "driveFridgeDonation",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "driveId",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "ngo",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "phoneno",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ngoAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "uniqueId",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "ngoDrives",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "driveName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "driveAddress",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "publicFridgeDonation",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "publicFridgesId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "status",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "publicFridges",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "ngoID",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "totalSlots",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeAddress",
+            "type": "string"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "name": "user",
+        "outputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "phoneno",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function",
+        "constant": true
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "phoneno",
+            "type": "uint256"
+          }
+        ],
+        "name": "addUser",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "phoneno",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "ngoAddress",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "uniqueId",
+            "type": "string"
+          }
+        ],
+        "name": "addNgo",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "driveName",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "driveAddress",
+            "type": "string"
+          }
+        ],
+        "name": "addNgoDrives",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "ngoID",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "totalSlots",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeType",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "fridgeAddress",
+            "type": "string"
+          }
+        ],
+        "name": "addPublicFridges",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "publicFridgesId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "status",
+            "type": "string"
+          }
+        ],
+        "name": "addPublicFridgeDonations",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "string",
+            "name": "ngoId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "userId",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "driveId",
+            "type": "string"
+          }
+        ],
+        "name": "addDriveFridgeDonation",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      }
+    ]
       
-    const foodDonationAddress = '0xBA14084aA1C5363A0A0B4f49b4072c6d67907376'; 
+    const foodDonationAddress = ' 0x03A136c74756A6B2c12ff27A7380E22eB5C8201a'; 
     const web3 = new Web3('http://localhost:7545');
     const Block = new web3.eth.Contract(foodDonationABI, foodDonationAddress);
     const address = await web3.eth.getAccounts();

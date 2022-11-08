@@ -1,5 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const Block = require('../blockchain/bundle');
 
 exports.register = async(req, res) => {
     try {
@@ -14,6 +15,12 @@ exports.register = async(req, res) => {
 
         const newUser = new User({name, email, password, phoneno});
         const user = await newUser.save();
+
+        
+        const BlockChain = await Block();
+        const contract = BlockChain.Block;
+        const BlockAddress = BlockChain.address;
+        await contract.methods.addUser(user.name, user.email, user.phoneno).send({from: BlockAddress[0], gas: '1000000'});
 
         return res.status(200).json({success: true, user, jwt: user.generateJWT()});
 

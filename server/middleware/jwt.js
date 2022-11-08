@@ -29,6 +29,7 @@ module.exports = passport => {
          else if(type  === 'ngo'){
             Ngo.findById(jwt_payload.id)
             .then(user => {
+               console.log(user);
                   return done(null, user, type);
             })
             .catch(err => {

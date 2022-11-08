@@ -38,10 +38,10 @@ exports.addDonation = async(req, res) => {
         const userId = user.id;
         const donationType = 'publicFridge';
 
-        const BlockChain = await Block();
-        const contract = BlockChain.Block;
-        const BlockAddress = BlockChain.address;
-        await contract.methods.addDonation(donationId, ngoId, userId, publicFridgesID, donationType).send({from: BlockAddress[0], gas: '1000000'});
+        // const BlockChain = await Block();
+        // const contract = BlockChain.Block;
+        // const BlockAddress = BlockChain.address;
+        // await contract.methods.addDonation(donationId, ngoId, userId, publicFridgesID, donationType).send({from: BlockAddress[0], gas: '1000000'});
 
         
 
@@ -109,15 +109,16 @@ exports.getUserDonation = async(req, res) => {
         if(!user)
             return res.status(200).json({success: false, message: 'unauthorized access'});
 
-        const x = await User.findById(user.id).populate('donatation').exec();
-        const donation  = x.donatation;
-
-        const BlockChain = await Block();
-        const contract = BlockChain.Block;
         const userId = user.id;
-        const result = await contract.methods.getUserDonations(userId).call();
+        const donation = await Donation.find({userId});
 
-        return res.status(200).json({success: true, donation, donationBlock: result});
+        donation.reverse();
+        // const BlockChain = await Block();
+        // const contract = BlockChain.Block;
+        // const userId = user.id;
+        // const result = await contract.methods.getUserDonations(userId).call();
+
+        return res.status(200).json({success: true, donation});
     } catch (error) {
         res.status(500).json({success: false, message: 'Server Error'})
     }
@@ -130,15 +131,16 @@ exports.getNgoDonation = async(req, res) => {
         if(!ngo)
             return res.status(200).json({success: false, message: 'unauthorized access'});
 
-        const x = await Ngo.findById(ngo.id).populate('donation').exec();
-        const donation  = x.donation;
-       
-        const BlockChain = await Block();
-        const contract = BlockChain.Block;
         const ngoId = ngo.id;
-        const result = await contract.methods.getUserDonations(ngoId).call();
+        const donation = await Donation.find({ngoId});
+        donation.reverse();
+       
+        // const BlockChain = await Block();
+        // const contract = BlockChain.Block;
+        // const ngoId = ngo.id;
+        // const result = await contract.methods.getUserDonations(ngoId).call();
 
-        return res.status(200).json({success: true, donation, donationBlock: result});
+        return res.status(200).json({success: true, donation});
 
     } catch (error) {
         res.status(500).json({success: false, message: 'Server Error'})
@@ -151,6 +153,28 @@ exports.getSpecificDonation = async(req, res) => {
 
         const donation = await Donation.findById(id);
 
+        return res.status(200).json({success: true, donation});
+    } catch (error) {
+        res.status(500).json({success: false, message: 'Server Error'})
+    }
+}
+
+exports.getDriveDonation = async(req, res) =>{
+    try {
+        const {id} = req.params;
+
+        const donation = await Donation.find({driveId:id});
+
+        return res.status(200).json({success: true, donation});
+    } catch (error) {
+        res.status(500).json({success: false, message: 'Server Error'})
+    }
+}
+
+
+exports.getallDonations = async(req, res) => {
+    try {
+        const donation = await Donation.find({});
         return res.status(200).json({success: true, donation});
     } catch (error) {
         res.status(500).json({success: false, message: 'Server Error'})

@@ -62,11 +62,10 @@ exports.verifyNgo = async(req, res) => {
         await ngo.save();
 
         //Todo: From here the Ngo is added to blockchain
-        const BlockChain = await Block();
-        const contract = BlockChain.Block;
-        const BlockAddress = BlockChain.address;
-        await contract.methods.addNgo(ngo.id, ngo.name, ngo.email, ngo.phoneno, ngo.address).send({from: BlockAddress[0], gas: '1000000'});
-
+        // const BlockChain = await Block();
+        // const contract = BlockChain.Block;
+        // const BlockAddress = BlockChain.address;
+        // await contract.methods.addNgo(ngo.name, ngo.email, ngo.phoneno, ngo.address,ngo.uniqueId).send({from: BlockAddress[0], gas: '1000000'});
 
         return res.status(200).json({success:true, ngo});
     } catch (error) {
@@ -74,6 +73,32 @@ exports.verifyNgo = async(req, res) => {
     }
 }
 
+
+exports.rejectNgo = async(req, res) => {
+    try{
+        const admin = req.admin;
+
+       if(!admin)
+            return res.status(200).json({success:false, message: 'Unauthorized Access'});
+        
+        const {id} = req.body;
+
+        console.log(id);
+
+        await Ngo.findByIdAndDelete(id);
+
+        const ngo = await Ngo.findById(id);
+
+        if(ngo)
+            return res.status(200).json({success: false, message:'some error'});
+
+        return res.status(200).json({success: true});
+        
+    }
+    catch(error){
+        res.status(500).json({success: false, message: 'Server Error', error: error.message})
+    }
+}
 
 
 exports.getallNgo = async(req, res) => {
@@ -85,8 +110,9 @@ exports.getallNgo = async(req, res) => {
        if(!admin)
             return res.status(200).json({success:false, message: 'Unauthorized Access'});
         
-        const ngo = await Ngo.find({});
+        const ngo = await Ngo.find({isVerified:false, isDocumnetUploaded:true});
 
+        ngo.reverse();
         return res.status(200).json({success:true, ngo});
     } catch (error) {
         res.status(500).json({success: false, message: 'Server Error'})
@@ -110,12 +136,12 @@ exports.specificNgo = async(req, res) => {
          const ngo = await Ngo.findById(id);
 
          //Todo:when the blockchain is implemented ngos data will be reterived by blockchain
-        const BlockChain = await Block();
-        const contract = BlockChain.Block;
-        const result = await contract.methods.getNgo(id).call();
+        // const BlockChain = await Block();
+        // const contract = BlockChain.Block;
+        // const result = await contract.methods.getNgo(id).call();
  
-         return res.status(200).json({success:true, ngo, blockNgo: result});
+         return res.status(200).json({success:true, ngo});
     } catch (error) {
-        res.status(500).json({success: false, message: 'Server Error'})
+        res.status(500).json({success: false, message: 'Server Error', error: error.message})
     }
 }

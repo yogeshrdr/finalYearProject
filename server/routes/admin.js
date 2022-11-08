@@ -23,6 +23,10 @@ router.post('/verifyNgo',[
     check('id').not().isEmpty().withMessage({success: false, message: 'NgoId is requried'}),
 ], validate, Auth, Admin.verifyNgo);
 
+router.post('/rejectNgo',[
+    check('id').not().isEmpty().withMessage({success: false, message: 'NgoId is requried'}),
+], validate, Auth, Admin.rejectNgo);
+
 
 router.get('/getallNgo', Auth, Admin.getallNgo);
 

@@ -32,7 +32,6 @@ const ngoSchema = new Schema({
     },
     phoneno:{
         type: Number,
-        required: 'Phoneno is Required',
     },
     address:{
         type: String,
@@ -41,9 +40,26 @@ const ngoSchema = new Schema({
         type: Boolean,
         default: false
     },
-    documents:[{
-        type: documentSchema
-    }],
+    isDocumnetUploaded:{
+        type: Boolean,
+        default: false
+    },
+    uniqueId:{
+        type: String,
+        default: null
+    },
+    fssai:{
+        type: String,
+        default: null
+    },
+    registrationCertificate:{
+        type: String,
+        default: null
+    },
+    adharCard:{
+        type: String,
+        default: null
+    },
     donation:[{ 
         type: Schema.Types.ObjectId,
         ref: 'donation'

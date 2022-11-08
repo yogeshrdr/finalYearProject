@@ -8,6 +8,8 @@ module.exports = (req, res, next) => {
     if (!user)
         return res.status(401).json({ success: false, message: "Unauthorized Access" });
 
+    console.log(user);
+    
     if(type == 'admin')
         req.admin = user;
     if(type == 'user')

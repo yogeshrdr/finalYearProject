@@ -24,6 +24,9 @@ router.get('/getSpecificDonation/:id',[
     check('id').not().isEmpty().withMessage({success: false, message: 'DonationId is requried'}),
 ], validate, Donation.getSpecificDonation);
 
+router.get('/getDriveDonation/:id',Auth, Donation.getDriveDonation)
 
+router.get('/getallDonations',Auth, Donation.getallDonations)
+ 
 
 module.exports = router;
